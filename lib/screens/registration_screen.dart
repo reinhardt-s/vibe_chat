@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RegistrationScreen extends StatefulWidget {
+  static const String id = 'register';
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
@@ -9,7 +10,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -18,7 +19,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           children: <Widget>[
             Container(
               height: 200.0,
-              child: Image.asset('images/logo.png'),
+              child: Hero(tag: 'logo', child: Image.asset('assets/images/vibe_chat.png')),
             ),
             SizedBox(
               height: 48.0,
