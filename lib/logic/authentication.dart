@@ -3,9 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Authentication{
 
   Authentication();
+  final _instance = FirebaseAuth.instance;
+
+  String getUsername(){
+    return _instance.currentUser!.email!;
+  }
 
   void checkAuthState({Function? onSignedIn, Function? onSignedOut}) {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    _instance.authStateChanges().listen((User? user) {
       if (user == null) {
         print('User is currently signed out!');
         if (onSignedOut != null) {
@@ -23,7 +28,7 @@ class Authentication{
   Future<User?> register({required String emailAddress, required String password}) async {
     print('Register');
     try {
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final credential = await _instance.createUserWithEmailAndPassword(
         email: emailAddress,
         password: password,
       );
@@ -43,13 +48,13 @@ class Authentication{
 
   Future<void> logout() async {
     print('Logout');
-    await FirebaseAuth.instance.signOut();
+    await _instance.signOut();
   }
 
   Future<User?> login({required String emailAddress, required String password} ) async {
     print('Login');
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final credential = await _instance.signInWithEmailAndPassword(
         email: emailAddress,
         password: password,
       );
