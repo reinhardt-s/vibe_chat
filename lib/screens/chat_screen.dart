@@ -22,7 +22,18 @@ class _ChatScreenState extends State<ChatScreen> {
                 //Implement logout functionality
               }),
         ],
-        title: Text('⚡️Chat'),
+        title: Row(
+          children: [
+            Hero(
+              tag: 'logo',
+              child: Container(
+                child: Image.asset('assets/images/vibe_chat.png'),
+                height: 40.0,
+              ),
+            ),
+            Text('Vibe Chat'),
+          ],
+        ),
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: SafeArea(

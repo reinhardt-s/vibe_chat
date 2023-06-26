@@ -1,13 +1,31 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vibechat/components/rounded_button.dart';
+import 'package:vibechat/logic/authentication.dart';
+
+import 'chat_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'register';
+
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  String emailAddress = '';
+  String password = '';
+  Authentication authentication = Authentication();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    authentication.checkAuthState(onSignedIn: (){
+      Navigator.pushNamed(context, ChatScreen.id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,12 +45,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             TextField(
               onChanged: (value) {
-                //Do something with the user input.
+                emailAddress = value;
               },
               decoration: InputDecoration(
                 hintText: 'Enter your email',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 ),
@@ -51,12 +68,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             TextField(
               onChanged: (value) {
-                //Do something with the user input.
+                password = value;
               },
               decoration: InputDecoration(
                 hintText: 'Enter your password',
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 ),
@@ -77,7 +93,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               text: 'Register',
               color: Colors.blueAccent,
               onPressed: () {
-                //Implement registration functionality.
+                authentication.register(emailAddress: emailAddress, password: password);
               },
             ),
           ],

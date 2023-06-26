@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:vibechat/components/rounded_button.dart';
+import 'package:vibechat/logic/authentication.dart';
 import 'package:vibechat/screens/login_screen.dart';
 import 'package:vibechat/screens/registration_screen.dart';
 
@@ -14,17 +15,7 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin {
   // Add with SingleTickerProviderStateMixin
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
+  Authentication authentication = Authentication();
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +69,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
             RoundedButton(
               text: 'Register',
               color: Colors.blueAccent,
-              onPressed: () {
+              onPressed: () async {
+                await authentication.logout();
                 Navigator.pushNamed(context, RegistrationScreen.id);
               },
             ),
